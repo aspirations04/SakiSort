@@ -1,4 +1,4 @@
-﻿var VERSION_NUM = 'v2.4';					//	版本号
+﻿var VERSION_NUM = 'v2.5';					//	版本号
 
 //	單行本默認選擇最近的版本
 var curVolumnNum = CUR_VOLUMNNUM;
@@ -11,14 +11,15 @@ var imageType = 1;							//	默認顯示漫畫圖片
 //	測試範圍標記
 var inMangaFlag = false;
 var inAnimateFlag = false;
+var inAnimateZenkokuFlag = false;
 var inVolumnFlag = false;
 var inAchigaFlag = false;
 var inAchigaAnimateFlag = false;
 var inAchigaVolumnFlag = false;
 var inSNHYFlag = false;
+var inSNHYVolumnFlag = false;
 
 //	數據存放
-
 var curRoles = new Array();
 var curRanking = new Array();
 var curSchoolData = new Array();
@@ -43,31 +44,22 @@ function initList(){
 	var n = 0;
 	var mid;
 	var i;
-
-
 	curRoles = new Array();
 	
-
 	//	導入數據
-	
-for(i in roles) {
-
+	for(i in roles) {
 		if (roles[i].flag){
 			curRoles.push(roles[i]);
-
 		}
 	}
-
-	//	进行两次亂序排列
-
+	//	随机排列
 	curRoles.sort(function(){return Math.random()>0.5?-1:1;});
 	curRoles.sort(function(){return Math.random()>0.5?-1:1;});
 	curRoles.sort(function(){return Math.random()>0.5?-1:1;}); 
+	
 	//	展示角色人數
 	document.getElementById("allNum").innerHTML = roles.length;
-
 	document.getElementById("curNum").innerHTML = curRoles.length;
-
 	if (curRoles.length < 2) { showEmpty(); return; }
 
 	//ソートすべき配列
@@ -400,66 +392,52 @@ function toNameFace(n){
 
 		if (curRoles[n].intro != undefined && curRoles[n].school > 0 && curRoles[n].intro.length > 0) str+="<br>";
 		
-if (curRoles[n].intro != undefined) str+=curRoles[n].intro;
-		
-str+="</font>";
+		if (curRoles[n].intro != undefined) str+=curRoles[n].intro;
+		str+="</font>";
 	}
 	
 	str += "</div>";
 	return str;
 }
 
-
-
 function setRoles() {
-
 	if (document.getElementById("settingField").style.display == 'none') {
-
 		document.getElementById("settingField").style.display = 'block';
-
-	}
-
-	else {
-	
+	} else {
 		document.getElementById("settingField").style.display = 'none';
-	
-		}
-
 	}
+}
 
-
-function updateSettingField() {
-	
+function updateSettingField() {	
 	document.getElementById("settingField").innerHTML = getImageSetting();
 	document.getElementById("settingField").innerHTML += getRangeList();
-
 	document.getElementById("settingField").innerHTML += getSchoolList();
-	
 	document.getElementById("settingField").innerHTML += getRoleList();
 
 	var info = "<div style='border:1px dashed #cccccc;margin:5px;padding:5px;'>";
 	info += "<b>範圍說明：</b><ul>";
 	info += "<li>連載：在本篇漫畫連載中出場過的角色（截止至" + INFO_MANGA + "，含番外）</li>";
 	info += "<li>單行本：在本篇單行本中出場過的角色（截止至選擇的冊數）</li>";
-	info += "<li>動畫：在本篇動畫中出場過的角色（BD版本，含25ED）</li>";
-	info += "<li>連載(A)：在阿知賀篇漫畫連載中出場過的角色</li>";
-	info += "<li>動畫(A)：在阿知賀篇動畫中出場過的角色（TV版本，含OPED）</li>";
-	info += "<li>單行本(A)：在阿知賀篇單行本中出場過的角色（截止至選擇的冊數）</li>";
-	info += "<li>連載(S)：在シノハユ漫畫連載中出場過的角色（截止至" + INFO_MANGA_SNHY + "）</li>";
+	info += "<li>動畫(无印)：在本篇動畫中出場過的角色（BD版本，含25ED）</li>";
+	info += "<li>動畫(全國篇)：在全國篇動畫中出場過的角色</li>";
+	info += "<li>連載(阿知賀篇)：在阿知賀篇漫畫連載中出場過的角色</li>";
+	info += "<li>動畫(阿篇)：在阿知賀篇動畫中出場過的角色（TV版本，含OPED）</li>";
+	info += "<li>單行本(阿篇)：在阿知賀篇單行本中出場過的角色（截止至選擇的冊數）</li>";
+	info += "<li>連載(シノハユ)：在シノハユ漫畫連載中出場過的角色（截止至" + INFO_MANGA_SNHY + "，含第0局）</li>";
+	info += "<li>單行本(シ)：在シノハユ單行本中出場過的角色（截止至選擇的冊數）</li>";
 	info += "</ul></div>";
 	document.getElementById("settingField").innerHTML += info;
-
 }
 
 function getImageSetting() {
 	var str = "<div style='border:1px dashed #cccccc;margin:5px;padding:5px;'>";
 	str+= "<b>頭像顯示：</b>";
 	str += "<input type='radio' " + (imageType == 0 ? "checked" : "") + " name='imageType' value='0' onchange='switchImage()' />不顯示";
-	str += "<input type='radio' " + (imageType == 1 ? "checked" : "") + " name='imageType' value='1' onchange='switchImage()' />漫畫(+A)";
-	str += "<input type='radio' " + (imageType == 2 ? "checked" : "") + " name='imageType' value='2' onchange='switchImage()'/>動畫";
-	str += "<input type='radio' " + (imageType == 3 ? "checked" : "") + " name='imageType' value='3' onchange='switchImage()' />動畫(A)";
+	str += "<input type='radio' " + (imageType == 1 ? "checked" : "") + " name='imageType' value='1' onchange='switchImage()' />漫畫";
+	str += "<input type='radio' " + (imageType == 2 ? "checked" : "") + " name='imageType' value='2' onchange='switchImage()'/>動畫(第一季)";
+	str += "<input type='radio' " + (imageType == 3 ? "checked" : "") + " name='imageType' value='3' onchange='switchImage()' />動畫";
 	//str += "<input type='radio' " + (imageType == 4 ? "checked" : "") + " name='imageType' value='4' onchange='switchImage()' />咲日和";
-	str += "（無圖則使用動畫/漫畫替換，下次選擇生效）</div>";
+	str += "</div>";
 	return str;
 }
 
@@ -471,18 +449,14 @@ function switchImage() {
 			break;
 		}
 	}
+	showImage();
 }
 
-
-
 function getRangeList() {
-	
 	var str = "<div style='border:1px dashed #cccccc;margin:5px;padding:5px;'>";
-	
 	str+= "<b>測試范围：</b>";
 	str += "<input type='checkbox' " + (curRoles.length == roles.length ? "checked" : "") + " id='rangeflag' onclick='setRange(-1);' />全選/反選";
-	
-str += "<input type='checkbox' " + (inMangaFlag ? "checked" : "") + " id='rangeflag_0' onclick='setRange(0);' />連載";
+	str += "<input type='checkbox' " + (inMangaFlag ? "checked" : "") + " id='rangeflag_0' onclick='setRange(0);' />連載";
 	str += "<input type='checkbox' " + (inVolumnFlag ? "checked" : "") + " id='rangeflag_1' onclick='setRange(1);' />單行本";
 	str += "<select id='volumnNum' onchange='setVolumn();' style='margin:1px; padding:0px;'>";
 	for (i = CUR_VOLUMNNUM; i > 0 ; i-- )
@@ -493,13 +467,13 @@ str += "<input type='checkbox' " + (inMangaFlag ? "checked" : "") + " id='rangef
 	}
 	str += "</select>";
 
-	str += "<input type='checkbox' " + (inAnimateFlag ? "checked" : "") + " id='rangeflag_2' onclick='setRange(2);' />動畫";
-	//str += "<input type='checkbox' " + (inAnimateFlag ? "checked" : "") + " id='rangeflag_7' onclick='setRange(7);' disabled/>動畫(全国篇)";
-	str += "　　　　　　　　<br>　　　　　 ";
+	str += "<input type='checkbox' " + (inAnimateFlag ? "checked" : "") + " id='rangeflag_2' onclick='setRange(2);' />動畫(无印)";
+	str += "<input type='checkbox' " + (inAnimateZenkokuFlag ? "checked" : "") + " id='rangeflag_8' onclick='setRange(8);' />動畫(全國篇)";
+	str += "<br>";
 
-	str += "<input type='checkbox' " + (inAchigaFlag ? "checked" : "") + " id='rangeflag_3' onclick='setRange(3);' />連載(A)";
-	str += "<input type='checkbox' " + (inAchigaAnimateFlag ? "checked" : "") + " id='rangeflag_4' onclick='setRange(4);' />動畫(A)";
-	str += "<input type='checkbox' " + (inAchigaVolumnFlag ? "checked" : "") + " id='rangeflag_5' onclick='setRange(5);' />單行本(A)";
+	str += "<input type='checkbox' " + (inAchigaFlag ? "checked" : "") + " id='rangeflag_3' onclick='setRange(3);' />連載(阿知賀篇)";
+	str += "<input type='checkbox' " + (inAchigaAnimateFlag ? "checked" : "") + " id='rangeflag_4' onclick='setRange(4);' />動畫(阿篇)";
+	str += "<input type='checkbox' " + (inAchigaVolumnFlag ? "checked" : "") + " id='rangeflag_5' onclick='setRange(5);' />單行本(阿篇)";
 	str += "<select id='volumnNum_Achiga' onchange='setVolumnAchiga();' style='margin:1px; padding:0px;'>";
 	for (i = CUR_VOLUMNNUM_ACHIGA; i > 0 ; i-- )
 	{
@@ -509,66 +483,42 @@ str += "<input type='checkbox' " + (inMangaFlag ? "checked" : "") + " id='rangef
 	}
 	str += "</select>";
 	str += "<input type='checkbox' " + (inSNHYFlag ? "checked" : "") + " id='rangeflag_6' onclick='setRange(6);' />連載(シノハユ)";
+	str += "<input type='checkbox' " + (inSNHYVolumnFlag ? "checked" : "") + " id='rangeflag_7' onclick='setRange(7);' />單行本(シ)";
+	str += "<select id='volumnNum_Shinohayu' onchange='setVolumnShinohayu();' style='margin:1px; padding:0px;'>";
+	for (i = CUR_VOLUMNNUM_SHINOHAYU; i > 0 ; i-- )
+	{
+		str += "<option value=" + i + " ";
+		if (i == curVolumnNum_Shinohayu) str += " selected";
+		str += " >卷" + i + "</option>"; 
+	}
+	str += "</select>";
 
 	str += "</div>";
 	return str;
-
 }
-
-
 
 function getSchoolList() {
-	
 	var str = "<div style='border:1px dashed #cccccc;margin:5px;padding:5px;'>";
-	
 	str+= "<b>測試学校：</b>";
-	
-	var i;
-
-	
-for (i in schools) {
-		
+	for (var i in schools) {
 		str += "<input type='checkbox' " + (schools[i].flag ? "checked" : "");
-		
 		str += " id='scflag_" + i + "' onclick='setSchool(" + i + ");' />";
-		
 		str += schools[i].name; 
-	
 	}
-	
-	
 	str += "</div>";	
-	
 	return str;
-
 }
-
-
 	
-function getRoleList() {
-	
+function getRoleList() {	
 	var str = "<div style='border:1px dashed #cccccc;margin:5px;padding:5px;'>";
-	
 	str+= "<b>測試角色：</b>";
-	
-	var i;
-	
-	
-	for (i in roles) {
-		
+	for (var i in roles) {
 		str += "<input type='checkbox' " + (roles[i].flag ? "checked" : "");
-		
 		str += " id='roleflag_" + i + "' onclick='setRole(" + i + ");' />";
-		
 		str += roles[i].name; 
-	
 	}
-	
-	
 	str += "</div>";	
-	
 	return str;
-
 }
 
 function setVolumn() {
@@ -581,10 +531,12 @@ function setVolumnAchiga() {
 	setRange(5);
 }
 
-
+function setVolumnShinohayu() {
+	document.getElementById("rangeflag_7").checked = true;
+	setRange(7);
+}
 	
 function setRange(n) {
-	
 	var i;
 	for(i in schools) schools[i].flag = false;
 	for(i in roles) roles[i].flag = false;
@@ -599,21 +551,18 @@ function setRange(n) {
 			inAchigaAnimateFlag = document.getElementById("rangeflag_4").checked = isAll;
 			inAchigaVolumnFlag = document.getElementById("rangeflag_5").checked = isAll;
 			inSNHYFlag = document.getElementById("rangeflag_6").checked = isAll;
+			inSNHYVolumnFlag = document.getElementById("rangeflag_7").checked = isAll;
+			inAnimateZenkokuFlag = document.getElementById("rangeflag_8").checked = isAll;
 			inMangaFlag = document.getElementById("rangeflag_0").checked = isAll;
 			break;
-
 		case 1:	// 單行本
 			inVolumnFlag = document.getElementById("rangeflag_1").checked;
 			break;
 		case 2: // 動畫
-
 			inAnimateFlag = document.getElementById("rangeflag_2").checked;
-
 			break;
-
 		case 3:	// 阿知賀篇
 			inAchigaFlag = document.getElementById("rangeflag_3").checked;
-
 			break;
 		case 4:	// 阿知賀篇動畫
 			inAchigaAnimateFlag = document.getElementById("rangeflag_4").checked;
@@ -624,17 +573,20 @@ function setRange(n) {
 		case 6:	// シノハユ
 			inSNHYFlag = document.getElementById("rangeflag_6").checked;
 			break;
-
-		case 0:	// 漫畫連載
-	
-	default:
-			inMangaFlag = document.getElementById("rangeflag_0").checked;
-
+		case 7:	// シノハユ單行本
+			inSNHYVolumnFlag = document.getElementById("rangeflag_7").checked;
 			break;
-	
-}
+		case 8: // 全国篇
+			inAnimateZenkokuFlag = document.getElementById("rangeflag_8").checked;
+			break;
+		case 0:	// 漫畫連載
+		default:
+			inMangaFlag = document.getElementById("rangeflag_0").checked;
+			break;
+	}
 	curVolumnNum = document.getElementById("volumnNum").value;
 	curVolumnNum_Achiga = document.getElementById("volumnNum_Achiga").value;
+	curVolumnNum_Shinohayu = document.getElementById("volumnNum_Shinohayu").value;
 	
 	for(i in schools) {
 		if(isAll) schools[i].flag = true;
@@ -644,53 +596,38 @@ function setRange(n) {
 		if(inAchigaAnimateFlag && schools[i].AA) schools[i].flag = true;
 		if(inAchigaVolumnFlag && schools[i].AV > 0 && schools[i].AV <= curVolumnNum_Achiga) schools[i].flag = true;
 		if(inSNHYFlag && schools[i].SV > 0) schools[i].flag = true;
+		if(inSNHYVolumnFlag && schools[i].SV > 0 && schools[i].SV <= curVolumnNum_Shinohayu) schools[i].flag = true;
 		if(inMangaFlag && schools[i].KV > 0) schools[i].flag = true;
+		if(inAnimateZenkokuFlag && schools[i].ZA) schools[i].flag = true;
 	}
 	for(i in roles) {
 		if(isAll) roles[i].flag = true;
 		if(inVolumnFlag && roles[i].KV > 0 && roles[i].KV <= curVolumnNum) roles[i].flag = true;
 		if(inAnimateFlag && roles[i].KA) roles[i].flag = true;
-		if(inAchigaFlag && roles[i].AV > 0) roles[i].flag = true;
+		if(inAchigaFlag && roles[i].AV >= 0) roles[i].flag = true;
 		if(inAchigaAnimateFlag && roles[i].AA) roles[i].flag = true;
 		if(inAchigaVolumnFlag && roles[i].AV > 0 && roles[i].AV <= curVolumnNum_Achiga) roles[i].flag = true;
-		if(inSNHYFlag && roles[i].SV > 0) roles[i].flag = true;
-		if(inMangaFlag && roles[i].KV > 0) roles[i].flag = true;
+		if(inSNHYFlag && roles[i].SV >= 0) roles[i].flag = true;
+		if(inSNHYVolumnFlag && roles[i].SV > 0 && roles[i].SV <= curVolumnNum_Shinohayu) roles[i].flag = true;
+		if(inMangaFlag && roles[i].KV >= 0) roles[i].flag = true;
+		if(inAnimateZenkokuFlag && roles[i].ZA) roles[i].flag = true;
 	}
-	
 	initList();
-
 }
-	
-
 
 function setRole(n) {
-
-	var flag = document.getElementById("roleflag_" + n).checked;
-	
-roles[n].flag = flag;
+	var flag = document.getElementById("roleflag_" + n).checked;	
+	roles[n].flag = flag;
 	initList();
-
 }
 
-
-
 function setSchool(n) {
-
 	var flag = document.getElementById("scflag_" + n).checked;
-	
 	schools[n].flag = flag;
-
-	var i;
-	
-	for(i in roles) {
-		
+	for(var i in roles) {
 		if(roles[i].school == schools[n].id) {
-
 			roles[i].flag = schools[n].flag;
-
 		}
-
 	}
-
 	initList();
 }
