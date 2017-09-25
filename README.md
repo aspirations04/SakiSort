@@ -1,15 +1,5 @@
-《咲-Saki-》喜歡的角色排序器。
+咲-Saki- - Saki character sorter
 
-源程式來自http://sakisort.web.fc2.com。
+Forked from sort.saki.cc, sourced from sakisort.web.fc2.com
 
-中文版除了基本的漢化外，還對其進行了一些修改，包括：
-
-·可選測試範圍：要測試的作品、學校以及具體角色可以自定義。
-
-·喜歡學校排名：對角色的排名結果按學校分組統計喜歡的學校排名。
-
-·可選角色頭像：可以選擇展示角色在原作動畫或漫畫的截圖。
-
-·加入角色信息：學校與簡介。
-
-·部分代碼重構。
+English in progress

@@ -1,4 +1,4 @@
-﻿var INFO_MANGA = "第126局「威風」";			//	本篇連載數據說明
+var INFO_MANGA = "第126局「威風」";			//	本篇連載數據說明
 var INFO_MANGA_SNHY = "第8局";				//	シノハユ连载数据说明
 var CUR_VOLUMNNUM = 12;						//	本篇單行本冊數
 var CUR_VOLUMNNUM_ACHIGA = 6;				//	阿知賀篇單行本冊數
@@ -64,29 +64,29 @@ function displaySchool(id) {
 
 var schools = new Array();
 //////////////////////////////////////////////////////////////////////
-// 長野縣預選
-schools.push(new School(10, "清澄", "長野", {KV:1, KA:true, AA:true, ZA:true, AV:1, flag:true}));
-schools.push(new School(11, "龍門渕", "長野", {KV:1, KA:true, AA:true, ZA:true, AV:1, flag:true}));
-schools.push(new School(12, "風越女子", "長野", {KV:1, KA:true, AA:true, ZA:true, AV:3, flag:true}));
-schools.push(new School(13, "鶴賀", "長野", {KV:1, KA:true, AA:true, ZA:true, AV:3, flag:true}));
-schools.push(new School(14, "高遠原中學", "長野", {KV:1, KA:true, ZA:true}));
-schools.push(new School(15, "今宮女子", "長野", {KV:1, KA:true}));
-schools.push(new School(16, "千曲東", "長野", {KV:1, KA:true}));
-schools.push(new School(17, "東福寺", "長野", {KV:1, KA:true}));
-schools.push(new School(18, "平滝", "長野", {KV:7, KA:true}));
+// Nagano
+schools.push(new School(10, "Kiyosumi", "Nagano", {KV:1, KA:true, AA:true, ZA:true, AV:1, flag:true}));
+schools.push(new School(11, "Ryuumonbuchi", "Nagano", {KV:1, KA:true, AA:true, ZA:true, AV:1, flag:true}));
+schools.push(new School(12, "Kazekoshi", "Nagano", {KV:1, KA:true, AA:true, ZA:true, AV:3, flag:true}));
+schools.push(new School(13, "Tsuruga", "Nagano", {KV:1, KA:true, AA:true, ZA:true, AV:3, flag:true}));
+schools.push(new School(14, "Takatoobara", "Nagano", {KV:1, KA:true, ZA:true}));
+schools.push(new School(15, "Imamiya", "Nagano", {KV:1, KA:true}));
+schools.push(new School(16, "East Chikuma", "Nagano", {KV:1, KA:true}));
+schools.push(new School(17, "Toufukuji", "Nagano", {KV:1, KA:true}));
+schools.push(new School(18, "Hirataki", "Nagano", {KV:7, KA:true}));
 //////////////////////////////////////////////////////////////////////
-// 奈良縣預選
-schools.push(new School(20, "阿知賀女子", "奈良", {KV:11, AA:true, ZA:true, AV:1, SV:1, flag:true}));
-schools.push(new School(21, "晚成", "奈良", 0, {AA:true, AV:1}));
+// Nara
+schools.push(new School(20, "Achiga", "Nara", {KV:11, AA:true, ZA:true, AV:1, SV:1, flag:true}));
+schools.push(new School(21, "Bansei", "Nara", 0, {AA:true, AV:1}));
 //////////////////////////////////////////////////////////////////////
-// 島根縣預選
-schools.push(new School(70, "打麻將的小學生", "島根", {SV:1}));
+// Shimane
+schools.push(new School(70, "Yumachi", "Shimane", {SV:1}));
 //////////////////////////////////////////////////////////////////////
-// 全國種子校
-schools.push(new School(30, "白糸台", "西東京", {KV:7, KA:true, AA:true, ZA:true, AV:2, flag:true}));
-schools.push(new School(31, "臨海女子", "東東京", {KV:7, KA:true, AA:true, ZA:true, flag:true}));
-schools.push(new School(32, "千里山女子", "北大阪", {AA:true, AV:1, ZA:true, flag:true}));
-schools.push(new School(33, "永水女子", "鹿兒島", {KV:7, KA:true, AA:true, ZA:true, flag:true}));
+// National seed schools
+schools.push(new School(30, "Shiraitodai", "West Tokyo", {KV:7, KA:true, AA:true, ZA:true, AV:2, flag:true}));
+schools.push(new School(31, "Rinkai", "East Tokyo", {KV:7, KA:true, AA:true, ZA:true, flag:true}));
+schools.push(new School(32, "Senriyama", "North Osaka", {AA:true, AV:1, ZA:true, flag:true}));
+schools.push(new School(33, "Eisui", "Kagoshima", {KV:7, KA:true, AA:true, ZA:true, flag:true}));
 //////////////////////////////////////////////////////////////////////
 // 全國其他學校（本篇）
 schools.push(new School(41, "姫松", "南大阪", {KV:8, AA:true, ZA:true, flag:true}));
@@ -122,7 +122,7 @@ schools.push(new School(0, "其他", "",  {KV:1, KA:true, ZA:true}));
 
 var roles = new Array();
 //////////////////////////////////////////////////////////////////////
-// 清澄
+// Kiyosumi
 roles.push(new Role("宮永咲", "saki", 10, {intro:"嶺上使", KV:1, KA:true, AA:true, ZA:true, AV:1, flag:true, memo:"打麻將真開心啊\r\n巨乳控"}));
 roles.push(new Role("原村和", "nodoka", 10, {intro:"小和和", KV:1, KA:true, AA:true, ZA:true, AV:1, flag:true, memo:"技術宅·歐派星人"}));
 roles.push(new Role("片岡優希", "yuki", 10, {KV:1, KA:true, AA:true, ZA:true, AV:4, flag:true, memo:"Tacos星人"}));
@@ -130,34 +130,34 @@ roles.push(new Role("竹井久", "hisa", 10, {KV:1, KA:true, AA:true, ZA:true, A
 roles.push(new Role("染谷真子", "mako", 10, {KV:1, KA:true, AA:true, ZA:true, AV:6, flag:true, memo:"眼鏡·海帶"}));
 roles.push(new Role("須賀京太郎", "kyoutarou", 10, {KV:1, KA:true, AA:true, ZA:true, memo:"犬"}));
 roles.push(new Role("埃特潘", "aitepan", 0, {intro:"原村和的企鵝玩偶", KV:1, KA:true, AA:true, ZA:true, AV:1, memo:"吉祥物"}));
-// 龍門渕
+// Ryuumonbuchi
 roles.push(new Role("天江衣", "kuromo", 11, {intro:"龍門渕家的大小姐", KV:1, KA:true, AA:true, ZA:true, AV:1, flag:true, memo:"衣不是小孩子！"}));
-roles.push(new Role("龍門渕透華", "touka", 11, {intro:"龍門渕家的大小姐", KV:2, KA:true, AA:true, ZA:true, AV:1, flag:true, memo:"傲嬌·暗戀小和和中"}));
+roles.push(new Role("Ryuumonbuchi透華", "touka", 11, {intro:"龍門渕家的大小姐", KV:2, KA:true, AA:true, ZA:true, AV:1, flag:true, memo:"傲嬌·暗戀小和和中"}));
 roles.push(new Role("国広一", "hajime", 11, { KV:2, KA:true, AA:true, ZA:true, AV:1, flag:true, memo:"暗戀透華中"}));
 roles.push(new Role("沢村智紀", "tomoki", 11, {KV:2, KA:true, AA:true, ZA:true, AV:1, flag:true}));
 roles.push(new Role("井上純", "jun", 11, {KV:2, KA:true, AA:true, ZA:true, AV:1, flag:true, memo:"老子是女的！"}));
 roles.push(new Role("荻良", "hagiyoshi", 0, {intro:"龍門渕家的管家", KV:2, KA:true, AA:true, AV:1, memo:"萬能"}));
 roles.push(new Role("杉乃歩", "ayumu", 11, {intro:"龍門渕家的女僕", KV:2, KA:true, AA:true, AV:1}));
-// 風越
+// Kazekoshi
 roles.push(new Role("福路美穂子", "mihoko", 12, {intro:"機械白癡的Captain", KV:2, KA:true, ZA:true, AA:true, AV:3, flag:true, memo:"每天都思念著上埜同學"}));
 roles.push(new Role("池田華菜", "kana", 12, {KV:2, KA:true, AA:true, ZA:true, AV:3, flag:true, memo:"暗戀隊長中"}));
 roles.push(new Role("吉留未春", "miharu", 12, {KV:2, KA:true, AA:true, ZA:true, AV:3, flag:true,memo:"暗戀華菜中"}));
 roles.push(new Role("文堂星夏", "seika", 12, {KV:2, KA:true, ZA:true, memo: "在收集雀士卡片"}));
 roles.push(new Role("深堀純代", "sumiyo", 12, {KV:2, KA:true, ZA:true, memo:"比福與小姐更加豐滿"}));
 roles.push(new Role("久保貴子", "takako", 12, {intro:"監督", KV:2, KA:true, ZA:true, memo:"池田アアア!!!"}));
-// 鶴賀
+// Tsuruga
 roles.push(new Role("加治木由美", "yumi", 13, {intro:"鶴賀的偽部長", KV:3, KA:true, AA:true, ZA:true, AV:3, flag:true}));
 roles.push(new Role("東横桃子", "momoko", 13, {intro:"隱形小桃", KV:3, KA:true, AA:true, ZA:true, AV:2, flag:true, memo:"最喜歡前輩"}));
 roles.push(new Role("蒲原智美", "satomi", 13, {intro:"鶴賀的部長<br>哇哈哈", KV:3, KA:true, AA:true, ZA:true, AV:2, flag:true, memo:"哇哈哈"}));
 roles.push(new Role("津山睦月", "mutsuki", 13, {intro:"鶴賀的新部長", KV:2, KA:true, AA:true, ZA:true, AV:3, flag:true, memo:"在收集雀士卡片"}));
 roles.push(new Role("妹尾佳織", "kaori", 13, {intro:"蒲原的幼馴染", KV:3, KA:true, AA:true, ZA:true, AV:3, flag:true, memo:"初心"}));
-// 白糸台
+// Shiraitodai
 roles.push(new Role("宮永照", "teru", 30, {intro:"冠軍☆", KV:1, KA:true, AA:true, ZA:true, AV:2, flag:true, memo:"電光毒龍鉆\r\n吃貨"}));
 roles.push(new Role("弘世菫", "sumire", 30, {intro:"sharp☆shooter", KV:7, KA:true, AA:true, ZA:true, AV:2, flag:true, memo:"吐槽役"}));
 roles.push(new Role("大星淡", "awashi", 30, {intro:"超新星☆<br>高校100年生", KV:7, KA:true, AA:true, ZA:true, AV:2, flag:true, memo:"100執念笨淡組組長"}));
 roles.push(new Role("渋谷尭深", "takami", 30, {KV:7, KA:true, AA:true, ZA:true, AV:2, flag:true, memo:"茶子"}));
 roles.push(new Role("亦野誠子", "seiko", 30, {intro:"白糸台☆fisher", KV:7, KA:true, AA:true, ZA:true, AV:2, flag:true, memo:"釣魚"}));
-// 永水
+// Eisui
 roles.push(new Role("神代小蒔", "komaki", 33, {intro:"霧島神宮的公主", KV:7, KA:true, AA:true, ZA:true, flag:true, memo:"吃貨·瞌睡蟲"}));
 roles.push(new Role("石戸霞", "kasumi", 33, {intro:"巫女·六女仙之一", KV:7, KA:true, AA:true, ZA:true, flag:true, memo:"黑黑霞"}));
 roles.push(new Role("薄墨初美", "hatsumi", 33, {intro:"巫女·六女仙之一", KV:7, KA:true, AA:true, ZA:true, flag:true, memo:"雖然特意叮囑了但還是被塞(ry"}));
@@ -165,7 +165,7 @@ roles.push(new Role("滝見春", "haru", 33, {intro:"巫女·六女仙之一<br>
 roles.push(new Role("狩宿巴", "tomoe", 33, {intro:"巫女·六女仙之一", KV:7, KA:true, AA:true, ZA:true, flag:true, memo:"受"}));
 roles.push(new Role("石戸明星", "akise", 33, {intro:"巫女·六女仙之一<br>中等部的學員", KV:11}));
 roles.push(new Role("十曾湧", "jisso", 33, {intro:"中等部的學員", KV:11}));
-// 臨海
+// Rinkai
 roles.push(new Role("Nelly Virsaladze", "nelly", 31, {intro:"", KV:7, KA:true, ZA:true, flag:true, memo:"小紅帽"}));
 roles.push(new Role("雀明華", "chei", 31, {intro:"風神", KV:7, KA:true, AA:true, ZA:true, flag:true}));
 roles.push(new Role("辻垣内智葉", "satoha", 31, {intro:"去年個人戰第三名", KV:7, KA:true, AA:true, ZA:true, flag:true, memo:"極道大小姐"}));
@@ -194,7 +194,7 @@ roles.push(new Role("桧森誓子", "chikako", 46, {intro:"有珠山的次鋒", 
 roles.push(new Role("獅子原爽", "sawaya", 46, {intro:"", KV:11, AA:true, ZA:true, flag:true, memo:"巧克力"}));
 roles.push(new Role("岩館搖杏", "yuan", 46, {intro:"", KV:11, AA:true, ZA:true, flag:true}));
 roles.push(new Role("真屋由暉子‎", "yukiko", 46,{intro:"", KV:11, AA:true, ZA:true, flag:true, memo:"打倒はやりん!"}));
-// 阿知賀
+// Achiga
 roles.push(new Role("高鴨穏乃", "shizuno", 20, {intro:"", KV:11, AA:true, ZA:true, AV:1, SV:0, flag:true, memo:"100執念笨蛋組成員"}));
 roles.push(new Role("新子憧", "ako", 20, {intro:"", KV:11, AA:true, ZA:true, AV:1, SV:0, flag:true, memo:"好像是暗戀穩乃中"}));
 roles.push(new Role("松実玄", "kuro", 20, {intro:"“Dragon Lord”<br>收集寶牌", KV:11, AA:true, ZA:true, AV:1, SV:0, flag:true, memo:"天然"}));
@@ -207,14 +207,14 @@ roles.push(new Role("石飛閑無", "kanna", 70, {intro:"我根本不喜歡麻�
 roles.push(new Role("稻村杏果", "kyouka", 70, {intro:"", SV:1, memo:""}));
 roles.push(new Role("本常玲奈", "rena", 70, {intro:"", SV:1, memo:""}));
 roles.push(new Role("金泽阳葵", "himari", 70, {intro:"", SV:1, memo:""}));
-// 晚成
+// Bansei
 roles.push(new Role("小走八重", "yae", 21, {intro:"讓你們看看<br>王者的打法!!", AA:true, AV:1, flag:true}));
 roles.push(new Role("丸瀬紀子", "noriko", 21, {AA:true, AV:1}));
 roles.push(new Role("木村日菜", "hina", 21, {AA:true, AV:1}));
 roles.push(new Role("上田良子", "ryouko", 21, {AA:true, AV:1}));
 roles.push(new Role("巽由華", "yuka", 21, {AA:true, AV:1}));
 roles.push(new Role("岡橋初瀬", "hatsuse", 21, {intro:"啦啦隊", AA:true, AV:1, flag:true, memo:"暗戀著憧???"}));
-// 千里山
+// Senriyama
 roles.push(new Role("園城寺怜", "toki", 32, {intro:"病弱的先知<br>枕神小怜", AA:true, AV:4, ZA:true, flag:true, memo:"竜華的大腿…"}));
 roles.push(new Role("清水谷竜華", "ryuuka", 32, {intro:"千里山的部長<br>一直照顧著怜", AA:true, ZA:true, AV:4, flag:true}));
 roles.push(new Role("江口夕", "seira", 32, {intro:"千里山的前ACE<br>不喜歡穿裙子", KV:12, AA:true, ZA:true, AV:4, flag:true}));
@@ -259,18 +259,18 @@ roles.push(new Role("百鬼藍子", "ranko", 64, {intro:"靜岡個人賽第一",
 roles.push(new Role("霜崎弦", "ito", 65, {intro:"千葉MVP", AA:true, AV:3}));
 roles.push(new Role("南浦数絵", "sue", 18, {intro:"在長野個人賽中<br>表現優異", KV:7, KA:true, flag:true}));
 roles.push(new Role("多治比真佑子", "mayuko", 66, {intro:"西東京決賽大將", KV:7, KA:true, AA:true, AV:6}));
-// 高遠原
+// Takatoobara
 roles.push(new Role("夢乃真帆", "maho", 14,{intro:"原村和的學妹", KV:2, KA:true, ZA:true}));
 roles.push(new Role("室橋裕子", "hiroko2", 14,{intro:"原村和的學妹", KV:2, KA:true, ZA:true}));
-// 今宮女子
+// Imamiya
 roles.push(new Role("門松葉子", "youko", 15,{intro:"清澄縣預賽一回戰對手", KV:2, KA:true}));
 roles.push(new Role("堂山由香里", "yukari", 15,{intro:"清澄縣預賽一回戰對手", KV:2, KA:true}));
 roles.push(new Role("田中舞", "mai", 15, {intro:"清澄縣預賽一回戰對手", KV:2, KA:true}));
-// 千曲東
+// East Chikuma
 roles.push(new Role("上柿恵", "agumi", 16, {intro:"清澄縣預賽一回戰對手", KV:2, KA:true}));
 roles.push(new Role("土屋由理", "yuri", 16,{intro:"清澄縣預賽一回戰對手", KV:2, KA:true}));
 roles.push(new Role("小川芹香", "serika", 16,{intro:"清澄縣預賽一回戰對手", KV:2, KA:true}));
-// 東福寺
+// Toufukuji
 roles.push(new Role("永森和子", "kazuko", 17, {intro:"清澄縣預賽一回戰對手", KV:2, KA:true}));
 roles.push(new Role("三瀨晶子", "akiko", 17, {intro:"清澄縣預賽一回戰對手", KV:2, KA:true}));
 roles.push(new Role("河內智世美", "chisemi", 17, {intro:"清澄縣預賽一回戰對手", KV:2, KA:true}));
