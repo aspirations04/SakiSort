@@ -351,8 +351,8 @@ function sortSchools() {
 }
 
 function showEmpty() {
-	var str = "Currently selected<font color='red'>" + curRoles.length + "</font> characters, cannot sort."
-	str += "<br>Please add more characters in the settings below, or <a onclick='window.location.reload();'><u>refresh</u></a> to reset list.";
+	var str = "Currently selected <font color='red'>" + curRoles.length + "</font> characters, cannot sort."
+	str += "<br>Please add more characters with the filters below, or <a onclick='window.location.reload();'><u>refresh</u></a> to reset list.";
 	document.getElementById("resultField").style.display = 'block';
 	document.getElementById("resultField").innerHTML = str;
 	document.getElementById("mainTable").style.display = 'none';
@@ -420,23 +420,19 @@ function updateSettingField() {
 	document.getElementById("settingField").innerHTML += getRoleList();
 
 	var info = "<div style='border:1px dashed #cccccc;margin:5px;padding:5px;'>";
-	info += "<b>範圍說明：</b><ul>";
-	info += "<li>連載：在本篇漫畫連載中出場過的角色（截止至" + INFO_MANGA + "，含番外）</li>";
-	info += "<li>單行本：在本篇單行本中出場過的角色（截止至選擇的冊數）</li>";
-	info += "<li>動畫(无印)：在本篇動畫中出場過的角色（BD版本，含25ED）</li>";
-	info += "<li>動畫(全國篇)：在全國篇動畫中出場過的角色</li>";
-	info += "<li>連載(阿知賀篇)：在阿知賀篇漫畫連載中出場過的角色</li>";
-	info += "<li>動畫(阿篇)：在阿知賀篇動畫中出場過的角色（TV版本，含OPED）</li>";
-	info += "<li>單行本(阿篇)：在阿知賀篇單行本中出場過的角色（截止至選擇的冊數）</li>";
-	info += "<li>連載(シノハユ)：在シノハユ漫畫連載中出場過的角色（截止至" + INFO_MANGA_SNHY + "，含第0局）</li>";
-	info += "<li>單行本(シ)：在シノハユ單行本中出場過的角色（截止至選擇的冊數）</li>";
+	info += "<b>Character ranges:</b><ul>";
+	info += "<li>* manga: Characters appearing in this manga</li>";
+	info += "<li>* anime: Characters appearing in this anime</li>";
+	info += "<li>* volume: Characters appearing through selected volume</li>";
+	info += "<li>Saki manga current as of chapter " + INFO_MANGA + "</li>";
+	info += "<li>Shinohayu manga current as of chapter " + INFO_MANGA_SNHY + "</li>";
 	info += "</ul></div>";
 	document.getElementById("settingField").innerHTML += info;
 }
 
 function getImageSetting() {
 	var str = "<div style='border:1px dashed #cccccc;margin:5px;padding:5px;'>";
-	str+= "<b>Image:</b>";
+	str+= "<b>Images:</b>";
 	str += "<input type='radio' " + (imageType == 0 ? "checked" : "") + " name='imageType' value='0' onchange='switchImage()' />None";
 	str += "<input type='radio' " + (imageType == 1 ? "checked" : "") + " name='imageType' value='1' onchange='switchImage()' />Manga";
 	str += "<input type='radio' " + (imageType == 2 ? "checked" : "") + " name='imageType' value='2' onchange='switchImage()'/>Anime(1st season)";
@@ -459,7 +455,7 @@ function switchImage() {
 
 function getRangeList() {
 	var str = "<div style='border:1px dashed #cccccc;margin:5px;padding:5px;'>";
-	str+= "<b>Range:</b>";
+	str+= "<b>Ranges:</b>";
 	str += "<input type='checkbox' " + (curRoles.length == roles.length ? "checked" : "") + " id='rangeflag' onclick='setRange(-1);' />Select All/Invert";
 	str += "<input type='checkbox' " + (inMangaFlag ? "checked" : "") + " id='rangeflag_0' onclick='setRange(0);' />Saki manga";
 	str += "<input type='checkbox' " + (inVolumnFlag ? "checked" : "") + " id='rangeflag_1' onclick='setRange(1);' />Saki volume";
