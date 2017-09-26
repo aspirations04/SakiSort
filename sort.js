@@ -1,14 +1,14 @@
-﻿var VERSION_NUM = 'v2.5';					//	版本号
+﻿var VERSION_NUM = 'v2.5';					//	version number
 
-//	單行本默認選擇最近的版本
+//	Current volume is selected by default
 var curVolumnNum = CUR_VOLUMNNUM;
 var curVolumnNum_Achiga = CUR_VOLUMNNUM_ACHIGA;
 var curVolumnNum_Shinohayu = CUR_VOLUMNNUM_SHINOHAYU;
 
-//	頭像圖片類型
-var imageType = 1;							//	默認顯示漫畫圖片
+//	avatar image type
+var imageType = 1;							//	manga is default
 
-//	測試範圍標記
+//	select all in category
 var inMangaFlag = false;
 var inAnimateFlag = false;
 var inAnimateZenkokuFlag = false;
@@ -19,12 +19,12 @@ var inAchigaVolumnFlag = false;
 var inSNHYFlag = false;
 var inSNHYVolumnFlag = false;
 
-//	數據存放
+//	data
 var curRoles = new Array();
 var curRanking = new Array();
 var curSchoolData = new Array();
 
-//	比較用變量
+//	compare vars
 var lstMember;
 var parent = new Array();
 var equal = new Array();
@@ -37,7 +37,7 @@ var totalSize;
 var finishSize;
 var finishFlag;
 
-//変数の初期化+++++++++++++++++++++++++++++++++++++++++++++
+//Initialization+++++++++++++++++++++++++++++++++++++++++++++
 function initList(){
 	clearResult();
 	
@@ -46,23 +46,23 @@ function initList(){
 	var i;
 	curRoles = new Array();
 	
-	//	導入數據
+	//	import data
 	for(i in roles) {
 		if (roles[i].flag){
 			curRoles.push(roles[i]);
 		}
 	}
-	//	随机排列
+	//	randomize
 	curRoles.sort(function(){return Math.random()>0.5?-1:1;});
 	curRoles.sort(function(){return Math.random()>0.5?-1:1;});
 	curRoles.sort(function(){return Math.random()>0.5?-1:1;}); 
 	
-	//	展示角色人數
+	//	show number of characters
 	document.getElementById("allNum").innerHTML = roles.length;
 	document.getElementById("curNum").innerHTML = curRoles.length;
 	if (curRoles.length < 2) { showEmpty(); return; }
 
-	//ソートすべき配列
+	//array to sort
 	lstMember = new Array();
 	lstMember[n] = new Array();
 	for (i=0; i<curRoles.length; i++) {
@@ -73,8 +73,7 @@ function initList(){
 	n++;
 
 	for (i=0; i<lstMember.length; i++) {
-		//要素数が２以上なら２分割し、
-		//分割された配列をlstMemberの最後に加える
+		//if 2 or more elements, add arrays to lstMember
 		if(lstMember[i].length>=2) {
 			mid = Math.ceil(lstMember[i].length/2);
 			lstMember[n] = new Array();
@@ -90,15 +89,15 @@ function initList(){
 		}
 	}
 
-	//保存用配列
+	//storage array
 	for (i=0; i<curRoles.length; i++) {
 		rec[i] = 0;
 	}
 	nrec = 0;
 
-	//引き分けの結果を保存するリスト
-	//キー：リンク始点の値
-	// 値 ：リンク終点の値
+	//list of results
+	//key: link start
+	//value: link end
 	for (i=0; i<=curRoles.length; i++) {
 		equal[i] = -1;
 	}
@@ -115,16 +114,16 @@ function initList(){
 	showImage();
 }
 
-//リストのソート+++++++++++++++++++++++++++++++++++++++++++
-//flag：比較結果
-//  -1：左を選択
-//   0：引き分け
-//   1：右を選択
+//List Sorting+++++++++++++++++++++++++++++++++++++++++++
+//flag：:comparison result
+//  -1:selected left
+//   0: draw
+//   1:selected right
 function sortList(flag){
 	var i;
 	var str;
 
-	//recに保存
+	//save to rec
 	if (flag<0) {
 		rec[nrec] = lstMember[cmp1][head1];
 		head1++;
@@ -173,9 +172,9 @@ function sortList(flag){
 		}
 	}
 
-	//片方のリストを走査し終えた後の処理
+	//scan list
 	if (head1<lstMember[cmp1].length && head2==lstMember[cmp2].length) {
-		//リストcmp2が走査済 - リストcmp1の残りをコピー
+		//list cmp2 scanned - copy cmp1
 		while (head1<lstMember[cmp1].length){
 			rec[nrec] = lstMember[cmp1][head1];
 			head1++;
@@ -184,7 +183,7 @@ function sortList(flag){
 		}
 	}
 	else if (head1==lstMember[cmp1].length && head2<lstMember[cmp2].length) {
-		//リストcmp1が走査済 - リストcmp2の残りをコピー
+		//list cmp1 scanned - copy cmp2
 		while (head2<lstMember[cmp2].length){
 			rec[nrec] = lstMember[cmp2][head2];
 			head2++;
@@ -193,8 +192,7 @@ function sortList(flag){
 		}
 	}
 
-	//両方のリストの最後に到達した場合は
-	//親リストを更新する
+	//if reach end of list, update parent list
 	if (head1==lstMember[cmp1].length && head2==lstMember[cmp2].length) {
 		for (i=0; i<lstMember[cmp1].length+lstMember[cmp2].length; i++) {
 			lstMember[parent[cmp1]][i] = rec[i];
@@ -206,7 +204,7 @@ function sortList(flag){
 		head1 = 0;
 		head2 = 0;
 
-		//新しい比較を行う前にrecを初期化
+		//initialize rec before new comparison
 		if (head1==0 && head2==0) {
 			for (i=0; i<curRoles.length; i++) {
 				rec[i] = 0;
@@ -237,7 +235,7 @@ function clearResult() {
 	document.getElementById("roleResultField").innerHTML = '';
 }
 
-//結果の表示+++++++++++++++++++++++++++++++++++++++++++++++
+//Display results+++++++++++++++++++++++++++++++++++++++++++++++
 function showResult() {
 	var ranking = 1;
 	var sameRank = 1;
@@ -245,7 +243,7 @@ function showResult() {
 	var i;
 
 	str += "<table id=\"resultTable\">";
-	str += "<tr><th>順位<\/th><th>名前<\/th><\/tr>";
+	str += "<tr><th>Rank<\/th><th>Name<\/th><\/tr>";
 
 	curRanking = new Array();
 	for (i=0; i<curRoles.length; i++) {
@@ -262,7 +260,7 @@ function showResult() {
 	}
 	str += "<\/table>";
 
-	var str2 = "<input type='button' onclick='initList()' value='重新測試' />";
+	var str2 = "<input type='button' onclick='initList()' value='Resort' />";
 	document.getElementById("resultField").style.display = 'block';
 	document.getElementById("resultField").innerHTML = str2;
 	document.getElementById("roleResultField").style.display = 'block';
@@ -270,17 +268,17 @@ function showResult() {
 	document.getElementById("mainTable").style.display = 'none';
 }
 
-// 展示學校排名
+// Show school rankings
 function showSchoolResult() {
 	var str = "";
 	
-	// 計算學校平均順位
+	// calculate average school ranking
 	sortSchools();
 
 	if (curSchoolData.length == 0)return;
 	
 	str += "<table id=\"resultSchoolTable\">";
-	str += "<tr><th>順位<\/th><th>學校<\/th><th>人數<\/th><th>平均順位<\/th><\/tr>";
+	str += "<tr><th>Rank<\/th><th>School<\/th><th>Characters<\/th><th>Average Rank<\/th><\/tr>";
 
 	var ranking = 1;
 	var sameRank = 1;
@@ -289,8 +287,15 @@ function showSchoolResult() {
 		str += "<tr><td>"+ranking+"<\/td><td>"+displaySchool(curSchoolData[i].id)+"<\/td><td>"+curSchoolData[i].num+"<\/td><td >"+curSchoolData[i].rank.toFixed(2)+"<\/td><\/tr>";
 		str += "<tr><td colspan=\"4\" style=\"text-align:left; color: gray;\">";
 		for(j in curSchoolData[i].member) {
-			if (j > 0) str += "、";
-			str += curRoles[curSchoolData[i].member[j]].name + "（" + curRanking[curSchoolData[i].member[j]] + "位）";
+			if (j > 0) str += ",";
+			if (curRanking[curSchoolData[i].member[j]] % 10 == 1)
+				str += curRoles[curSchoolData[i].member[j]].name + "（" + curRanking[curSchoolData[i].member[j]] + "st）";
+			else if (curRanking[curSchoolData[i].member[j]] % 10 == 2)
+				str += curRoles[curSchoolData[i].member[j]].name + "（" + curRanking[curSchoolData[i].member[j]] + "nd）";
+			else if (curRanking[curSchoolData[i].member[j]] % 10 == 3)
+				str += curRoles[curSchoolData[i].member[j]].name + "（" + curRanking[curSchoolData[i].member[j]] + "rd）";
+			else
+				str += curRoles[curSchoolData[i].member[j]].name + "（" + curRanking[curSchoolData[i].member[j]] + "th）";
 		}
 		str += "<\/td><\/tr>";
 		if (i<curSchoolData.length-1) {
@@ -304,7 +309,7 @@ function showSchoolResult() {
 	}
 	str += "<\/table>";
 		
-	// 展示排名結果	
+	// Show rank results	
 	document.getElementById("schoolResultField").style.display = 'block';
 	document.getElementById("schoolResultField").innerHTML = str;
 }
@@ -323,7 +328,7 @@ function sortSchools() {
 	var flag;
 	for (i in curRoles) {
 		var id = curRoles[i].school;
-		if (id < 10) continue;	//	非學校的組織不計算
+		if (id < 10) continue;	//	non-school does not count
 		flag = false;
 		for (j in curSchoolData) {
 			if (curSchoolData[j].id == id) {
@@ -346,8 +351,8 @@ function sortSchools() {
 }
 
 function showEmpty() {
-	var str = "当前只选择了<font color='red'>" + curRoles.length + "</font>位角色，无法进行排序。"
-	str += "<br>请在下方設定中添加更多角色，或<a onclick='window.location.reload();'><u>刷新頁面</u></a>初始化列表。";
+	var str = "Currently selected<font color='red'>" + curRoles.length + "</font> characters, cannot sort."
+	str += "<br>Please add more characters in the settings below, or <a onclick='window.location.reload();'><u>refresh</u></a> to reset list.";
 	document.getElementById("resultField").style.display = 'block';
 	document.getElementById("resultField").innerHTML = str;
 	document.getElementById("mainTable").style.display = 'none';
@@ -355,7 +360,7 @@ function showEmpty() {
 	document.getElementById("settingField").style.display = 'block';
 }
 
-//比較する２つ要素の表示+++++++++++++++++++++++++++++++++++
+//Display battle+++++++++++++++++++++++++++++++++++
 function showImage() {
 	document.getElementById("mainTable").style.display = 'block';
 	var str0 = "Battle No."+numQuestion+"<br>"+Math.floor(finishSize*100/totalSize)+"% sorted.";
@@ -367,11 +372,11 @@ function showImage() {
 	numQuestion++;
 }
 
-//数値を名前（顔文字）に変換+++++++++++++++++++++++++++++++
+//Convert numbers to names+images+++++++++++++++++++++++++++++++
 function toNameFace(n){
 	var str = "";
 	
-	// 頭像加入
+	// add image
 	if (imageType > 0)
 	{
 		str += "<div";
@@ -379,13 +384,13 @@ function toNameFace(n){
 		str += "><img src='images" + imageType + "/" + curRoles[n].img + ".jpg' border = 0 style='border:1px solid #000000;margin-bottom:5px'><br>";
 	}
 	
-	// 角色姓名
+	// character name
 	str += curRoles[n].name;
 
-	// 介紹文字
+	// intro text
 	str += "<br>";
 	switch(n) {
-		//case -1 はサンプルなので削除すること
+		//case -1 sample so delete
 		case -1: str+="（ ′口｀）";break;
 		default: str+="<font size='2'>";
 		str+=displaySchool(curRoles[n].school);
@@ -431,11 +436,11 @@ function updateSettingField() {
 
 function getImageSetting() {
 	var str = "<div style='border:1px dashed #cccccc;margin:5px;padding:5px;'>";
-	str+= "<b>頭像顯示：</b>";
-	str += "<input type='radio' " + (imageType == 0 ? "checked" : "") + " name='imageType' value='0' onchange='switchImage()' />不顯示";
-	str += "<input type='radio' " + (imageType == 1 ? "checked" : "") + " name='imageType' value='1' onchange='switchImage()' />漫畫";
-	str += "<input type='radio' " + (imageType == 2 ? "checked" : "") + " name='imageType' value='2' onchange='switchImage()'/>動畫(第一季)";
-	str += "<input type='radio' " + (imageType == 3 ? "checked" : "") + " name='imageType' value='3' onchange='switchImage()' />動畫";
+	str+= "<b>Image:</b>";
+	str += "<input type='radio' " + (imageType == 0 ? "checked" : "") + " name='imageType' value='0' onchange='switchImage()' />None";
+	str += "<input type='radio' " + (imageType == 1 ? "checked" : "") + " name='imageType' value='1' onchange='switchImage()' />Manga";
+	str += "<input type='radio' " + (imageType == 2 ? "checked" : "") + " name='imageType' value='2' onchange='switchImage()'/>Anime(1st season)";
+	str += "<input type='radio' " + (imageType == 3 ? "checked" : "") + " name='imageType' value='3' onchange='switchImage()' />Anime";
 	//str += "<input type='radio' " + (imageType == 4 ? "checked" : "") + " name='imageType' value='4' onchange='switchImage()' />咲日和";
 	str += "</div>";
 	return str;
@@ -454,42 +459,42 @@ function switchImage() {
 
 function getRangeList() {
 	var str = "<div style='border:1px dashed #cccccc;margin:5px;padding:5px;'>";
-	str+= "<b>測試范围：</b>";
-	str += "<input type='checkbox' " + (curRoles.length == roles.length ? "checked" : "") + " id='rangeflag' onclick='setRange(-1);' />全選/反選";
-	str += "<input type='checkbox' " + (inMangaFlag ? "checked" : "") + " id='rangeflag_0' onclick='setRange(0);' />連載";
-	str += "<input type='checkbox' " + (inVolumnFlag ? "checked" : "") + " id='rangeflag_1' onclick='setRange(1);' />單行本";
+	str+= "<b>Range:</b>";
+	str += "<input type='checkbox' " + (curRoles.length == roles.length ? "checked" : "") + " id='rangeflag' onclick='setRange(-1);' />Select All/Invert";
+	str += "<input type='checkbox' " + (inMangaFlag ? "checked" : "") + " id='rangeflag_0' onclick='setRange(0);' />Saki manga";
+	str += "<input type='checkbox' " + (inVolumnFlag ? "checked" : "") + " id='rangeflag_1' onclick='setRange(1);' />Saki volume";
 	str += "<select id='volumnNum' onchange='setVolumn();' style='margin:1px; padding:0px;'>";
 	for (i = CUR_VOLUMNNUM; i > 0 ; i-- )
 	{
 		str += "<option value=" + i + " ";
 		if (i == curVolumnNum) str += " selected";
-		str += " >卷" + i + "</option>"; 
+		str += " >" + i + "</option>"; 
 	}
 	str += "</select>";
 
-	str += "<input type='checkbox' " + (inAnimateFlag ? "checked" : "") + " id='rangeflag_2' onclick='setRange(2);' />動畫(无印)";
-	str += "<input type='checkbox' " + (inAnimateZenkokuFlag ? "checked" : "") + " id='rangeflag_8' onclick='setRange(8);' />動畫(全國篇)";
+	str += "<input type='checkbox' " + (inAnimateFlag ? "checked" : "") + " id='rangeflag_2' onclick='setRange(2);' />Saki anime";
+	str += "<input type='checkbox' " + (inAnimateZenkokuFlag ? "checked" : "") + " id='rangeflag_8' onclick='setRange(8);' />Zenkoku-hen anime";
 	str += "<br>";
 
-	str += "<input type='checkbox' " + (inAchigaFlag ? "checked" : "") + " id='rangeflag_3' onclick='setRange(3);' />連載(阿知賀篇)";
-	str += "<input type='checkbox' " + (inAchigaAnimateFlag ? "checked" : "") + " id='rangeflag_4' onclick='setRange(4);' />動畫(阿篇)";
-	str += "<input type='checkbox' " + (inAchigaVolumnFlag ? "checked" : "") + " id='rangeflag_5' onclick='setRange(5);' />單行本(阿篇)";
+	str += "<input type='checkbox' " + (inAchigaFlag ? "checked" : "") + " id='rangeflag_3' onclick='setRange(3);' />Achiga manga";
+	str += "<input type='checkbox' " + (inAchigaAnimateFlag ? "checked" : "") + " id='rangeflag_4' onclick='setRange(4);' />Achiga anime";
+	str += "<input type='checkbox' " + (inAchigaVolumnFlag ? "checked" : "") + " id='rangeflag_5' onclick='setRange(5);' />Achiga volume";
 	str += "<select id='volumnNum_Achiga' onchange='setVolumnAchiga();' style='margin:1px; padding:0px;'>";
 	for (i = CUR_VOLUMNNUM_ACHIGA; i > 0 ; i-- )
 	{
 		str += "<option value=" + i + " ";
 		if (i == curVolumnNum_Achiga) str += " selected";
-		str += " >卷" + i + "</option>"; 
+		str += " >" + i + "</option>"; 
 	}
 	str += "</select>";
-	str += "<input type='checkbox' " + (inSNHYFlag ? "checked" : "") + " id='rangeflag_6' onclick='setRange(6);' />連載(シノハユ)";
-	str += "<input type='checkbox' " + (inSNHYVolumnFlag ? "checked" : "") + " id='rangeflag_7' onclick='setRange(7);' />單行本(シ)";
+	str += "<input type='checkbox' " + (inSNHYFlag ? "checked" : "") + " id='rangeflag_6' onclick='setRange(6);' />Shinohayu manga";
+	str += "<input type='checkbox' " + (inSNHYVolumnFlag ? "checked" : "") + " id='rangeflag_7' onclick='setRange(7);' />Shinohayu volume";
 	str += "<select id='volumnNum_Shinohayu' onchange='setVolumnShinohayu();' style='margin:1px; padding:0px;'>";
 	for (i = CUR_VOLUMNNUM_SHINOHAYU; i > 0 ; i-- )
 	{
 		str += "<option value=" + i + " ";
 		if (i == curVolumnNum_Shinohayu) str += " selected";
-		str += " >卷" + i + "</option>"; 
+		str += " >" + i + "</option>"; 
 	}
 	str += "</select>";
 
@@ -499,7 +504,7 @@ function getRangeList() {
 
 function getSchoolList() {
 	var str = "<div style='border:1px dashed #cccccc;margin:5px;padding:5px;'>";
-	str+= "<b>測試学校：</b>";
+	str+= "<b>Schools:</b>";
 	for (var i in schools) {
 		str += "<input type='checkbox' " + (schools[i].flag ? "checked" : "");
 		str += " id='scflag_" + i + "' onclick='setSchool(" + i + ");' />";
@@ -511,7 +516,7 @@ function getSchoolList() {
 	
 function getRoleList() {	
 	var str = "<div style='border:1px dashed #cccccc;margin:5px;padding:5px;'>";
-	str+= "<b>測試角色：</b>";
+	str+= "<b>Characters:</b>";
 	for (var i in roles) {
 		str += "<input type='checkbox' " + (roles[i].flag ? "checked" : "");
 		str += " id='roleflag_" + i + "' onclick='setRole(" + i + ");' />";
@@ -555,31 +560,31 @@ function setRange(n) {
 			inAnimateZenkokuFlag = document.getElementById("rangeflag_8").checked = isAll;
 			inMangaFlag = document.getElementById("rangeflag_0").checked = isAll;
 			break;
-		case 1:	// 單行本
+		case 1:	// Saki volume
 			inVolumnFlag = document.getElementById("rangeflag_1").checked;
 			break;
-		case 2: // 動畫
+		case 2: // Saki anime
 			inAnimateFlag = document.getElementById("rangeflag_2").checked;
 			break;
-		case 3:	// 阿知賀篇
+		case 3:	// Achiga manga
 			inAchigaFlag = document.getElementById("rangeflag_3").checked;
 			break;
-		case 4:	// 阿知賀篇動畫
+		case 4:	// Achiga anime
 			inAchigaAnimateFlag = document.getElementById("rangeflag_4").checked;
 			break;
-		case 5:	// 阿知賀篇單行本
+		case 5:	// Achiga volume
 			inAchigaVolumnFlag = document.getElementById("rangeflag_5").checked;
 			break;
-		case 6:	// シノハユ
+		case 6:	// Shinohayu manga
 			inSNHYFlag = document.getElementById("rangeflag_6").checked;
 			break;
-		case 7:	// シノハユ單行本
+		case 7:	// Shinohayu volume
 			inSNHYVolumnFlag = document.getElementById("rangeflag_7").checked;
 			break;
-		case 8: // 全国篇
+		case 8: // Zenkoku anime
 			inAnimateZenkokuFlag = document.getElementById("rangeflag_8").checked;
 			break;
-		case 0:	// 漫畫連載
+		case 0:	// Saki manga
 		default:
 			inMangaFlag = document.getElementById("rangeflag_0").checked;
 			break;

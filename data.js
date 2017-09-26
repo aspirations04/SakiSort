@@ -1,52 +1,51 @@
-var INFO_MANGA = "第126局「威風」";			//	本篇連載數據說明
-var INFO_MANGA_SNHY = "第8局";				//	シノハユ连载数据说明
-var CUR_VOLUMNNUM = 12;						//	本篇單行本冊數
-var CUR_VOLUMNNUM_ACHIGA = 6;				//	阿知賀篇單行本冊數
-var CUR_VOLUMNNUM_SHINOHAYU = 1;			//	シノハユ單行本冊數
+var INFO_MANGA = "126";				//	Chapter of Saki
+var INFO_MANGA_SNHY = "8";				//	Chapter of Shinohayu
+var CUR_VOLUMNNUM = 12;						//	Volumes of Saki
+var CUR_VOLUMNNUM_ACHIGA = 6;				//	Volumes of Achiga
+var CUR_VOLUMNNUM_SHINOHAYU = 1;			//	Volumes of Shinohayu
 
-var UPDATE_DATE = '2014-05-25';				//	上次更新时间
+var UPDATE_DATE = '2014-05-25';				//	Last updated
 
 /***************************************************
- * 學校對象設計
+ * School object
  ***************************************************/
 function School(id, name, area, options) {
-	this.id = id;		//	學校編號
-	this.name = name;	//	學校名稱
-	this.area = area;	//	所屬賽區
+	this.id = id;		//	school number
+	this.name = name;	//	school name
+	this.area = area;	//	school location
 	
-	if (options.KV != undefined) this.KV = options.KV;	// 清澄篇單行本出現冊數
-	if (options.AV != undefined) this.AV = options.AV;	// 阿知賀篇單行本出現冊數
-	if (options.SV != undefined) this.SV = options.SV;	// シノハユ單行本出現冊數
-	if (options.KA != undefined) this.KA = options.KA;	// 是否在動畫出現
-	if (options.AA != undefined) this.AA = options.AA;	// 是否在阿知賀篇動畫出現
-	if (options.ZA != undefined) this.ZA = options.ZA;	// 是否在全国篇動畫出現
+	if (options.KV != undefined) this.KV = options.KV;	// Saki volumes
+	if (options.AV != undefined) this.AV = options.AV;	// Achiga volumes
+	if (options.SV != undefined) this.SV = options.SV;	// Shinohayu volumes
+	if (options.KA != undefined) this.KA = options.KA;	// Saki anime
+	if (options.AA != undefined) this.AA = options.AA;	// Achiga anime
+	if (options.ZA != undefined) this.ZA = options.ZA;	// Zenkoku anime
 
-	if (options.flag != undefined) this.flag = options.flag; // 默认是否选中
+	if (options.flag != undefined) this.flag = options.flag; // Selected by default
 }
 
 /***************************************************
- * 角色對象設計
+ * Character object
  ***************************************************/
-function Role(name, img, school, options)
-{
-	this.name = name;		//	姓名
-	this.img = img;			//	圖像檔案名稱
-	this.school = school;	//	學校編號
+function Role(name, img, school, options) {
+	this.name = name;		//	name
+	this.img = img;			//	image filename
+	this.school = school;	//	school number
 	
-	if (options.intro != undefined) this.intro = options.intro;	//	簡介
-	if (options.memo != undefined) this.memo = options.memo;	//	裏簡介
+	if (options.intro != undefined) this.intro = options.intro;	//	introduction
+	if (options.memo != undefined) this.memo = options.memo;	//	another introduction?
 	
-	if (options.KV != undefined) this.KV = options.KV;	// 清澄篇單行本出現冊數
-	if (options.AV != undefined) this.AV = options.AV;	// 阿知賀篇單行本出現冊數
-	if (options.SV != undefined) this.SV = options.SV;	// シノハユ單行本出現冊數
-	if (options.KA != undefined) this.KA = options.KA;	// 是否在動畫出現
-	if (options.AA != undefined) this.AA = options.AA;	// 是否在阿知賀篇動畫出現
-	if (options.ZA != undefined) this.ZA = options.ZA;	// 是否在全国篇動畫出現
+	if (options.KV != undefined) this.KV = options.KV;	// Saki volumes
+	if (options.AV != undefined) this.AV = options.AV;	// Achiga volumes
+	if (options.SV != undefined) this.SV = options.SV;	// Shinohayu volumes
+	if (options.KA != undefined) this.KA = options.KA;	// Saki anime
+	if (options.AA != undefined) this.AA = options.AA;	// Achiga anime
+	if (options.ZA != undefined) this.ZA = options.ZA;	// Zenkoku anime
 	
-	if (options.flag != undefined) this.flag = options.flag; // 默认是否选中
+	if (options.flag != undefined) this.flag = options.flag; // Selected by default
 }
 
-//	學校展示
+//	show school
 function displaySchool(id) {
 	if (id == 0) return "";
 	if (id == 1) return "Pro";
@@ -56,7 +55,7 @@ function displaySchool(id) {
 	var i;
 	for(i in schools) {
 		if(schools[i].id == id) {
-			return schools[i].name + "(" + schools[i].area + ")";
+			return schools[i].name + " (" + schools[i].area + ")";
 		}
 	}
 	return "";
